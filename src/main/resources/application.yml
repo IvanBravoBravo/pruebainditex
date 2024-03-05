@@ -1,0 +1,24 @@
+spring:
+    datasource:
+        continue-on-error: true
+        driverClassName: org.h2.Driver
+        initialize: true
+        username: sa
+        password: 
+        url: jdbc:h2:mem:testdb
+        #web console
+        #http://localhost:8080/h2-console/ 
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        defer-datasource-initialization: true
+        hibernate:
+            ddl-auto: none
+            show-sql: true
+    sql:
+        init:
+            mode: ALWAYS
+            
