@@ -1,6 +1,8 @@
 package com.inditex.prueba.service.impl;
 
 import com.inditex.prueba.entity.Brand;
+import com.inditex.prueba.exception.BrandExistException;
+import com.inditex.prueba.exception.BrandNotFoundException;
 import com.inditex.prueba.repository.BrandRepository;
 import com.inditex.prueba.service.BrandService;
 import java.util.Optional;
@@ -19,13 +21,24 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
-    public Brand getBrand(Integer id) {
+    public Brand getBrand(Integer id) throws BrandNotFoundException{
         Optional<Brand> brand = brandRepository.findById(id);
-        return brand.get();
+        if(brand.isPresent()){
+            log.debug("brand is present");
+            return brand.get();
+        }else{
+            log.debug("brand not found");
+            throw BrandNotFoundException.createWith(id);
+        }
     }
 
     @Override
-    public Brand postBrand(Brand brand) {
+    public Brand postBrand(Brand brand) throws BrandExistException {
+        Brand brnd = brandRepository.findByName(brand.getBrandName());
+        if (brnd != null && brnd.getBrandId()!=null) {
+            log.warn("Brand existe.");
+            throw BrandExistException.createWith(brnd.getBrandName());
+        }
         Brand brandSaved = brandRepository.save(brand);
         return brandSaved;
     }

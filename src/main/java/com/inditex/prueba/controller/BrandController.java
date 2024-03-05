@@ -3,6 +3,8 @@ package com.inditex.prueba.controller;
 import com.inditex.prueba.dto.BrandDTO;
 import com.inditex.prueba.service.BrandService;
 import com.inditex.prueba.entity.Brand;
+import com.inditex.prueba.exception.BrandExistException;
+import com.inditex.prueba.exception.BrandNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import java.security.NoSuchAlgorithmException;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +36,14 @@ public class BrandController {
     
     @GetMapping(path = "/brand/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<BrandDTO> getBrand(@NotNull @PathVariable("id") Integer id){
+    public ResponseEntity<BrandDTO> getBrand(@NotNull @PathVariable("id") Integer id) throws BrandNotFoundException{
         Brand brand = brandService.getBrand(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(convertToDto(brand));
     }
     
     @PostMapping(path = "/brand", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BrandDTO> postBrand(@RequestBody BrandDTO brandDTO) {
+    public ResponseEntity<BrandDTO> postBrand(@RequestBody BrandDTO brandDTO) throws BrandExistException {
         Brand brand = brandService.postBrand(convertToEntity(brandDTO));
         BrandDTO brandReturn = convertToDto(brand);
         return ResponseEntity.status(HttpStatus.CREATED).body(brandReturn);
