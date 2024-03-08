@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController
 @Slf4j
+@RequestMapping("/api/v1/brands")
 public class BrandController {
 
     private final BrandService brandService;
@@ -34,14 +36,14 @@ public class BrandController {
         this.modelMapper = modelMapper;
     }
     
-    @GetMapping(path = "/brand/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<BrandDTO> getBrand(@NotNull @PathVariable("id") Integer id) throws BrandNotFoundException{
         Brand brand = brandService.getBrand(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(convertToDto(brand));
     }
     
-    @PostMapping(path = "/brand", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<BrandDTO> postBrand(@RequestBody BrandDTO brandDTO) throws BrandExistException {
         Brand brand = brandService.postBrand(convertToEntity(brandDTO));

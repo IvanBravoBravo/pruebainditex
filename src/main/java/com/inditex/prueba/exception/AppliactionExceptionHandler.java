@@ -16,11 +16,13 @@ import org.springframework.web.util.WebUtils;
 
 @ControllerAdvice
 @Slf4j
-public class PruebaExceptionHandler {
+public class AppliactionExceptionHandler {
 
     @ExceptionHandler({
         BrandNotFoundException.class,
-        BrandExistException.class
+        BrandExistException.class,
+        ProductNotFoundException.class,
+        ProductExistException.class
     })
     @Nullable
     public final ResponseEntity<HttpError> handleException(Exception ex, WebRequest request) {
@@ -38,9 +40,17 @@ public class PruebaExceptionHandler {
             HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
             BrandExistException bee = brandExistException;
             return handleExceptionInternal(bee, httpError, headers, status, request);
+        } else if(ex instanceof ProductExistException productExistException){
+            HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+            ProductExistException pee = productExistException;
+            return handleExceptionInternal(pee, httpError, headers, status, request);
+        } else if(ex instanceof ProductNotFoundException productNotFoundException){
+            HttpStatus status = HttpStatus.NOT_FOUND;
+            ProductNotFoundException pnf = productNotFoundException;
+            return handleExceptionInternal(pnf, httpError, headers, status, request);
         } else {
             if (log.isWarnEnabled()) {
-                log.warn("Exception desconocida: " + ex.getClass().getName());
+                log.warn("Exception no manejada: " + ex.getClass().getName());
             }
             HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             return handleExceptionInternal(ex, httpError, headers, status, request);

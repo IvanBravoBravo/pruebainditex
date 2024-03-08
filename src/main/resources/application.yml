@@ -22,4 +22,6 @@ spring:
     sql:
         init:
             mode: ALWAYS
-            
+logging:
+    level:
+        com.inditex.prueba: DEBUG
