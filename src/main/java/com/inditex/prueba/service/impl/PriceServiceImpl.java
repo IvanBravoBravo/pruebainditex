@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.inditex.prueba.entity.Price;
 import com.inditex.prueba.repository.PriceRepository;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,7 +19,13 @@ public class PriceServiceImpl implements PriceService {
     public PriceServiceImpl(PriceRepository priceRepository) {
         this.priceRepository = priceRepository;
     }
-
+    
+    @Override
+    public Optional<Price> getPrecioFinal(LocalDateTime fechaAplicacion, Integer idProducto, Integer idCadena) {
+        List<Price> prices = priceRepository.findPrecioFinal(fechaAplicacion, idProducto, idCadena);
+        return prices.stream().findFirst();
+    }
+    
     @Override
     public Optional<Price> getPrice(Integer priceId){
         return priceRepository.findById(priceId);

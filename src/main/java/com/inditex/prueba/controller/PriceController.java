@@ -1,12 +1,16 @@
 package com.inditex.prueba.controller;
 
+import com.inditex.prueba.dto.PrecioFinalDTO;
 import com.inditex.prueba.dto.PriceDTO;
 import com.inditex.prueba.entity.Price;
+import com.inditex.prueba.exception.PrecioNotFoundException;
 import com.inditex.prueba.service.PriceService;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @RestController
@@ -31,6 +36,21 @@ public class PriceController {
     public PriceController(PriceService priceService, ModelMapper modelMapper) {
         this.priceService = priceService;
         this.modelMapper = modelMapper;
+    }
+    
+    @GetMapping
+    public ResponseEntity<PrecioFinalDTO> getPrecioFinal(
+            @RequestParam("fecha_aplicacion") 
+                @DateTimeFormat(pattern="yyyy-MM-dd HH.mm.ss") LocalDateTime fechaAplicacion,
+            @RequestParam("id_producto") Integer idProducto,
+            @RequestParam("id_cadena") Integer idCadena) throws PrecioNotFoundException {
+        Optional<Price> price = priceService.getPrecioFinal(fechaAplicacion, idProducto, idCadena);
+        if(price.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(convertToPrecioDto(price.get()));
+        }else{
+            throw PrecioNotFoundException.createWith(fechaAplicacion, idProducto, idCadena);
+        }
+        
     }
 
     @GetMapping("/{priceId}")
@@ -65,5 +85,10 @@ public class PriceController {
     private PriceDTO convertToDto(Price price) {
         PriceDTO priceDTO = modelMapper.map(price, PriceDTO.class);
         return priceDTO;
+    }
+    
+    private PrecioFinalDTO convertToPrecioDto(Price price) {
+        PrecioFinalDTO precioFinalDTO = modelMapper.map(price, PrecioFinalDTO.class);
+        return precioFinalDTO;
     }
 }

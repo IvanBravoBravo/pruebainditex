@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,6 +15,9 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "PRICES")
+@NamedQuery(name = "Price.findPrecioFinal",
+    query = "select p from Price p where p.startDate < ?1 and p.endDate > ?1 "
+            + "and p.productId = ?2 and p.brandId = ?3 Order By p.priority Desc")
 public class Price implements Serializable {
 
     @Id

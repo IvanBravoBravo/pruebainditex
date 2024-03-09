@@ -22,7 +22,8 @@ public class AppliactionExceptionHandler {
         BrandNotFoundException.class,
         BrandExistException.class,
         ProductNotFoundException.class,
-        ProductExistException.class
+        ProductExistException.class,
+        PrecioNotFoundException.class
     })
     @Nullable
     public final ResponseEntity<HttpError> handleException(Exception ex, WebRequest request) {
@@ -44,9 +45,13 @@ public class AppliactionExceptionHandler {
             HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
             ProductExistException pee = productExistException;
             return handleExceptionInternal(pee, httpError, headers, status, request);
-        } else if(ex instanceof ProductNotFoundException productNotFoundException){
+        } else if(ex instanceof ProductNotFoundException productNotFoundException){ 
             HttpStatus status = HttpStatus.NOT_FOUND;
             ProductNotFoundException pnf = productNotFoundException;
+            return handleExceptionInternal(pnf, httpError, headers, status, request);
+        } else if(ex instanceof PrecioNotFoundException precioNotFoundException){ 
+            HttpStatus status = HttpStatus.NOT_FOUND;
+            PrecioNotFoundException pnf = precioNotFoundException;
             return handleExceptionInternal(pnf, httpError, headers, status, request);
         } else {
             if (log.isWarnEnabled()) {

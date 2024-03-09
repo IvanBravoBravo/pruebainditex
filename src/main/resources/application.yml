@@ -19,9 +19,13 @@ spring:
             ddl-auto: none
             show-sql: true
         open-in-view: false
+        propierties:
+            hibernate:
+                format_sql: true
     sql:
         init:
             mode: ALWAYS
 logging:
     level:
         com.inditex.prueba: DEBUG
+        org.hibernate.SQL: DEBUG
