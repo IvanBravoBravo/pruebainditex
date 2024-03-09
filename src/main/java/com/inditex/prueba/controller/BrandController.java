@@ -6,7 +6,6 @@ import com.inditex.prueba.entity.Brand;
 import com.inditex.prueba.exception.BrandExistException;
 import com.inditex.prueba.exception.BrandNotFoundException;
 import jakarta.validation.constraints.NotNull;
-import java.security.NoSuchAlgorithmException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 import org.modelmapper.ModelMapper;

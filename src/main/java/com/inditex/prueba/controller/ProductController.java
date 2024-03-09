@@ -19,7 +19,6 @@ import com.inditex.prueba.exception.ProductExistException;
 import com.inditex.prueba.exception.ProductNotFoundException;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Slf4j
 @RestController
