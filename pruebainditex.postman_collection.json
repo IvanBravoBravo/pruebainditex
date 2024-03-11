@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5ecefb29-afaf-4179-9177-ad4bafbec2d4",
+		"_postman_id": "f406d5e8-9e4e-485d-9014-53eefe169964",
 		"name": "pruebainditex",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "17205596"
@@ -29,7 +29,21 @@
 			"name": "Get Brand",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/brand/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"brand",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -40,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"brandId\": \"\",\n    \"brandName\": \"HM\"\n}",
+					"raw": "{\n    \"brandId\": \"2\",\n    \"brandName\": \"HM\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -48,14 +62,261 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/brand",
+					"raw": "http://localhost:8080/api/v1/brands",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"brand"
+						"api",
+						"v1",
+						"brands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Price",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"brandId\": 2,\n    \"startDate\": \"2020-06-14T00:00:00\",\n    \"endDate\": \"2020-12-31T23:59:59\",\n    \"productId\": 35455,\n    \"priority\": 0,\n    \"price\": 20,\n    \"curr\": \"USD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/prices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"prices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/prices/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"prices",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Precio final",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/prices?fecha_aplicacion=2020-06-14-21.00.00&id_producto=35455&id_cadena=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"prices"
+					],
+					"query": [
+						{
+							"key": "fecha_aplicacion",
+							"value": "2020-06-14-21.00.00"
+						},
+						{
+							"key": "id_producto",
+							"value": "35455"
+						},
+						{
+							"key": "id_cadena",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/products/35455",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"35455"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/products/35458",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"35458"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Price",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/prices/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"prices",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": 35456,\n    \"productName\": \"product 35456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/products/35456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"35456"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Price",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"priceId\": 1,\n    \"brandId\": 1,\n    \"startDate\": \"2020-06-14T00:00:00\",\n    \"endDate\": \"2020-12-31 23.59.59\",\n    \"productId\": 35455,\n    \"priority\": 0,\n    \"price\": 36.50,\n    \"curr\": \"EUR\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/prices/35456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"prices",
+						"35456"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": 35456,\n    \"productName\": \"Producto 35456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
 					]
 				}
 			},
