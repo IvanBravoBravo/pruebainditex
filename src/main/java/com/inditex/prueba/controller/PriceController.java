@@ -41,9 +41,10 @@ public class PriceController {
     @GetMapping
     public ResponseEntity<PrecioFinalDTO> getPrecioFinal(
             @RequestParam("fecha_aplicacion") 
-                @DateTimeFormat(pattern="yyyy-MM-dd HH.mm.ss") LocalDateTime fechaAplicacion,
+                @DateTimeFormat(pattern="yyyy-MM-dd-HH.mm.ss") LocalDateTime fechaAplicacion,
             @RequestParam("id_producto") Integer idProducto,
             @RequestParam("id_cadena") Integer idCadena) throws PrecioNotFoundException {
+        log.debug("fecha_aplicacion : {}, id_producto: {}, id_cadena: {}",fechaAplicacion,idProducto, idCadena);
         Optional<Price> price = priceService.getPrecioFinal(fechaAplicacion, idProducto, idCadena);
         if(price.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(convertToPrecioDto(price.get()));
